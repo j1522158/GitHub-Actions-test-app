@@ -4,9 +4,12 @@ on:
   push:
     branches:
       - main
+  pullrequest:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-steps:
-  - run: echo hello world
+    steps:
+      - run: echo hello world github actions
