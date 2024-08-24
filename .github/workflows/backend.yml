@@ -28,6 +28,10 @@ jobs:
       - run: npm run test -- --coverage
       - run: npm run build     
 
+      # stepci dist/index.jsをバックグラウンド実行 & next command exec
+      - run: node dist/index.js &
+      - run: npm run test:api
+
       # upload artifact
       - uses: actions/upload-artifact@v4
         if: always()
