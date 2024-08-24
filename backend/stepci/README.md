@@ -11,7 +11,9 @@ npm install --save-dev stepci
 npx stepci --version
 
 テスト起動
-npx stepci run stepci/workflow.yml
+npm run test:api
+(npx stepci run stepci/workflow.yml)
+
 ```
 
 
