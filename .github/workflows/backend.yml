@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+  #pull_request:
+  #  branches:
+  #    - main
   # 定期実行の設定
   schedule:
    - cron: '0 12 * * *'
