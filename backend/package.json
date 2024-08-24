@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "test": "jest",
+    "test:api": "stepci run stepci/workflow.yml",
     "build": "ncc build"
   },
   "author": "",
