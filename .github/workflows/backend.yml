@@ -28,8 +28,9 @@ jobs:
       - run: npm run test -- --coverage
       - run: npm run build     
 
-      # stepci dist/index.jsをバックグラウンド実行 & next command exec
+      # stepci dist/index.jsをバックグラウンド実行 & wait health check ok &next command exec
       - run: node dist/index.js &
+      - run: wait-on -t 10000 http://localhost:8080/api/health
       - run: npm run test:api
 
       # upload artifact
