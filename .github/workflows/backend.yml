@@ -30,7 +30,7 @@ jobs:
 
       # stepci dist/index.jsをバックグラウンド実行 & wait health check ok &next command exec
       - run: node dist/index.js &
-      - run: wait-on -t 10000 http://localhost:8080/api/health
+      - run: npx wait-on -t 10000 http://localhost:8080/api/health
       - run: npm run test:api
 
       # upload artifact
