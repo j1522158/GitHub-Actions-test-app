@@ -1,6 +1,7 @@
 # Test App
 
 静的なフロントエンドとWebAPIの足し算アプリケーション
+[![backend](https://github.com/j1522158/GitHub-Actions-test-app/actions/workflows/backend.yml/badge.svg)](https://github.com/j1522158/GitHub-Actions-test-app/actions/workflows/backend.yml)
 
 ## 開発モードでの起動手順
 
