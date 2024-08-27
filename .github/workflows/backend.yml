@@ -47,18 +47,23 @@ jobs:
           retention-days: 5
   deploy:
     needs: build #ビルド成功時
-    if: github.event_name == 'push' #push時のみ
+    if: github.event_name == 'push' #push時
     runs-on: ubuntu:latest
     steps:
-      - run: rsync -v -e 'ssh -i ../../github-actions-key.pem' dist/index.js ${SERVER_USER}@${SERVER_IP}:~/index.js
+      - uses: shimataro/ssh-key-action@v2 # https://github.com/marketplace/actions/install-ssh-key
+        with:
+          key: ${{ secrets.BACKEND_SERVER_SSH_KEY }}
+          known_hosts: ${{ secrets.BACKEND_SERVER_KNOWN_HOSTS }}
+      
+      - run: rsync -v dist/index.js ${SERVER_USER}@${SERVER_IP}:~/index.js
         env:
           SERVER_USER: ${{ secrets.BACKEND_SERVER_USER}}
           SERVER_IP: ${{ secrets.BACKEND_SERVER_IP }}
-      - run: ssh -i ../../github-actions-key.pem ${SERVER_USER}@${SERVER_IP} sudo systemctl restart backend
+      - run: ssh ${SERVER_USER}@${SERVER_IP} sudo systemctl restart backend
         env:
           SERVER_USER: ${{ secrets.BACKEND_SERVER_USER}}
           SERVER_IP: ${{ secrets.BACKEND_SERVER_IP }}
-      - run: ssh -i ../../github-actions-key.pem ${SERVER_USER}@${SERVER_IP} sudo systemctl start backend
+      - run: ssh ${SERVER_USER}@${SERVER_IP} sudo systemctl start backend
         env:
           SERVER_USER: ${{ secrets.BACKEND_SERVER_USER}}
           SERVER_IP: ${{ secrets.BACKEND_SERVER_IP }}
