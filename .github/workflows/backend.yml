@@ -45,4 +45,12 @@ jobs:
           name: dist
           path: backend/dist/index.js
           retention-days: 5
+  deploy:
+    needs: build
+    if: github.event_name == 'push'
+    runs-on: ubuntu:latest
+    steps:
+      - run: rsync -v -e 'ssh -i ../../github-actions-key.pem' dist/index.js ubuntu@52.196.128.140:~/index.js
+      - run: ssh -i ../../github-actions-key.pem ubuntu@52.196.128.140 sudo systemctl restart backend
+      - run: ssh -i ../../github-actions-key.pem ubuntu@52.196.128.140 sudo systemctl start backend
 
