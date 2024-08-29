@@ -1,0 +1,16 @@
+name: frontend
+
+on:
+  push:
+    branches:
+      - main
+
+defaults:
+  run:
+    working-directory: backend
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - run: aws s3 sync . s3://github-actions-test-20240829 --exact-timestamps --region ap-northeast-1
